@@ -1,4 +1,3 @@
-
                    _   _ _ ___ _
                   | | | | | __/ \
                   | |_| U | _| o | - The Lightweight USB
