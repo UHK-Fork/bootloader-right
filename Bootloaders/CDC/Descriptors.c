@@ -53,8 +53,8 @@ const USB_Descriptor_Device_t DeviceDescriptor =
 
 	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 
-	.VendorID               = 0x03EB,
-	.ProductID              = 0x204A,
+	.VendorID               = 0x16D1,  // TODO: Restore the VID to 0x16D0 for the final prototype.
+	.ProductID              = 0x05ED,
 	.ReleaseNumber          = VERSION_BCD(1,0,0),
 
 	.ManufacturerStrIndex   = STRING_ID_Manufacturer,
@@ -191,9 +191,9 @@ const USB_Descriptor_String_t LanguageString =
  */
 const USB_Descriptor_String_t ManufacturerString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(11), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(28), .Type = DTYPE_String},
 
-	.UnicodeString          = L"Dean Camera"
+	.UnicodeString          = L"Ultimate Gadget Laboratories"
 };
 
 /** Product descriptor string. This is a Unicode string containing the product's details in human readable form,
@@ -202,9 +202,9 @@ const USB_Descriptor_String_t ManufacturerString =
  */
 const USB_Descriptor_String_t ProductString =
 {
-	.Header                 = {.Size = USB_STRING_LEN(8), .Type = DTYPE_String},
+	.Header                 = {.Size = USB_STRING_LEN(62), .Type = DTYPE_String},
 
-	.UnicodeString          = L"LUFA CDC"
+	.UnicodeString          = L"Ultimate Hacking Keyboard - Right Bootloader (AVR109 protocol)"
 };
 
 /** This function is called by the library when in device mode, and must be overridden (see LUFA library "USB Descriptors"
