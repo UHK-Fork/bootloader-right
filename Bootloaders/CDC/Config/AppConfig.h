@@ -35,7 +35,7 @@
  *  compile time options, as an alternative to the compile time
  *  constants supplied through a makefile.
  *
- *  For information on what each token does, refer to the 
+ *  For information on what each token does, refer to the
  *  \ref Sec_Options section of the application documentation.
  */
 
@@ -43,8 +43,8 @@
 #define _APP_CONFIG_H_
 
 //	#define NO_BLOCK_SUPPORT
-//	#define NO_EEPROM_BYTE_SUPPORT
+	#define NO_EEPROM_BYTE_SUPPORT
 //	#define NO_FLASH_BYTE_SUPPORT
-//	#define NO_LOCK_BYTE_WRITE_SUPPORT
+	#define NO_LOCK_BYTE_WRITE_SUPPORT
 
 #endif

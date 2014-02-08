@@ -99,10 +99,7 @@ void Application_Jump_Check(void)
 		wdt_disable();
 
 		/* Clear the boot key and jump to the user application */
-		MagicBootKey = 0;
-
-		// cppcheck-suppress constStatement
-		((void (*)(void))0x0000)();
+		Reenumerate(ENUMERATION_MODE_Keyboard);
 	}
 }
 
@@ -130,13 +127,7 @@ int main(void)
 	/* Disconnect from the host - USB interface will be reset later along with the AVR */
 	USB_Detach();
 
-	/* Unlock the forced application start mode of the bootloader if it is restarted */
-	MagicBootKey = MAGIC_BOOT_KEY;
-
-	/* Enable the watchdog and force a timeout to reset the AVR */
-	wdt_enable(WDTO_250MS);
-
-	for (;;);
+	Reenumerate(ENUMERATION_MODE_Keyboard);
 }
 
 /** Configures all hardware required for the bootloader. */
@@ -188,6 +179,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
  */
 void EVENT_USB_Device_ControlRequest(void)
 {
+	CatchReenumerateRequest();
+
 	/* Ignore any requests that aren't directed to the CDC interface */
 	if ((USB_ControlRequest.bmRequestType & (CONTROL_REQTYPE_TYPE | CONTROL_REQTYPE_RECIPIENT)) !=
 	    (REQTYPE_CLASS | REQREC_INTERFACE))
@@ -503,22 +496,22 @@ static void CDC_Task(void)
 		WriteNextResponseByte('\r');
 	}
 	#endif
-	else if (Command == AVR109_COMMAND_ReadLockbits)
-	{
-		WriteNextResponseByte(boot_lock_fuse_bits_get(GET_LOCK_BITS));
-	}
-	else if (Command == AVR109_COMMAND_ReadLowFuses)
-	{
-		WriteNextResponseByte(boot_lock_fuse_bits_get(GET_LOW_FUSE_BITS));
-	}
-	else if (Command == AVR109_COMMAND_ReadHighFuses)
-	{
-		WriteNextResponseByte(boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS));
-	}
-	else if (Command == AVR109_COMMAND_ReadExtendedFuses)
-	{
-		WriteNextResponseByte(boot_lock_fuse_bits_get(GET_EXTENDED_FUSE_BITS));
-	}
+//	else if (Command == AVR109_COMMAND_ReadLockbits)
+//	{
+//		WriteNextResponseByte(boot_lock_fuse_bits_get(GET_LOCK_BITS));
+//	}
+//	else if (Command == AVR109_COMMAND_ReadLowFuses)
+//	{
+//		WriteNextResponseByte(boot_lock_fuse_bits_get(GET_LOW_FUSE_BITS));
+//	}
+//	else if (Command == AVR109_COMMAND_ReadHighFuses)
+//	{
+//		WriteNextResponseByte(boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS));
+//	}
+//	else if (Command == AVR109_COMMAND_ReadExtendedFuses)
+//	{
+//		WriteNextResponseByte(boot_lock_fuse_bits_get(GET_EXTENDED_FUSE_BITS));
+//	}
 	#if !defined(NO_BLOCK_SUPPORT)
 	else if (Command == AVR109_COMMAND_GetBlockWriteSupport)
 	{

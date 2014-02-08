@@ -47,6 +47,7 @@
 
 		#include "Descriptors.h"
 		#include "BootloaderAPI.h"
+		#include "Reenumeration.h"
 		#include "Config/AppConfig.h"
 
 		#include <LUFA/Drivers/USB/USB.h>
@@ -73,9 +74,6 @@
 
 		/** Eight character bootloader firmware identifier reported to the host when requested. */
 		#define SOFTWARE_IDENTIFIER          "LUFACDC"
-
-		/** Magic bootloader key to unlock forced application start mode. */
-		#define MAGIC_BOOT_KEY               0xDC42
 
 	/* Enums: */
 		/** Possible memory types that can be addressed via the bootloader. */
@@ -127,8 +125,6 @@
 	/* Function Prototypes: */
 		static void CDC_Task(void);
 		static void SetupHardware(void);
-
-		void Application_Jump_Check(void) ATTR_INIT_SECTION(3);
 
 		void EVENT_USB_Device_ConfigurationChanged(void);
 
