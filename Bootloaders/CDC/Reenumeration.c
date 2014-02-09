@@ -6,6 +6,7 @@
 #include "Reenumeration.h"
 
 wormhole_t *Wormhole ATTR_NO_INIT;
+bool ShouldReenumerate = false;
 
 void Bootloader_Jump_Check(void)
 {
@@ -68,6 +69,6 @@ void CatchReenumerateRequest()
     }
 
     uint8_t NewEnumerationMode = ReportData[1];
-
-    Reenumerate(NewEnumerationMode);
+    Wormhole->EnumerationMode = NewEnumerationMode;
+    ShouldReenumerate = true;
 }

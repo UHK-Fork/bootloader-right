@@ -27,6 +27,10 @@
           uint8_t EnumerationMode;
         } wormhole_t;
 
+    /* External variables */
+        extern wormhole_t *Wormhole ATTR_NO_INIT;
+        extern bool ShouldReenumerate;
+
     /* Function Prototypes: */
         void Bootloader_Jump_Check(void) ATTR_INIT_SECTION(3);
         void Reenumerate(uint8_t ReenumerateAs);

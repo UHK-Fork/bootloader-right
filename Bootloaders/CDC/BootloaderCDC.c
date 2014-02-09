@@ -122,6 +122,10 @@ int main(void)
 	{
 		CDC_Task();
 		USB_USBTask();
+		
+		if (ShouldReenumerate) {
+			Reenumerate(Wormhole->EnumerationMode);
+		}
 	}
 
 	/* Disconnect from the host - USB interface will be reset later along with the AVR */
