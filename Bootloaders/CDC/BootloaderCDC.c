@@ -56,53 +56,6 @@ static uint32_t CurrAddress;
  */
 static bool RunBootloader = true;
 
-/** Magic lock for forced application start. If the HWBE fuse is programmed and BOOTRST is unprogrammed, the bootloader
- *  will start if the /HWB line of the AVR is held low and the system is reset. However, if the /HWB line is still held
- *  low when the application attempts to start via a watchdog reset, the bootloader will re-start. If set to the value
- *  \ref MAGIC_BOOT_KEY the special init function \ref Application_Jump_Check() will force the application to start.
- */
-uint16_t MagicBootKey ATTR_NO_INIT;
-
-
-/** Special startup routine to check if the bootloader was started via a watchdog reset, and if the magic application
- *  start key has been loaded into \ref MagicBootKey. If the bootloader started via the watchdog and the key is valid,
- *  this will force the user application to start via a software jump.
- */
-void Application_Jump_Check(void)
-{
-	bool JumpToApplication = false;
-
-	#if ((BOARD == BOARD_XPLAIN) || (BOARD == BOARD_XPLAIN_REV1))
-		/* Disable JTAG debugging */
-		JTAG_DISABLE();
-
-		/* Enable pull-up on the JTAG TCK pin so we can use it to select the mode */
-		PORTF |= (1 << 4);
-		Delay_MS(10);
-
-		/* If the TCK pin is not jumpered to ground, start the user application instead */
-		JumpToApplication |= ((PINF & (1 << 4)) != 0);
-
-		/* Re-enable JTAG debugging */
-		JTAG_ENABLE();
-	#endif
-
-	/* If the reset source was the bootloader and the key is correct, clear it and jump to the application */
-	if ((MCUSR & (1 << WDRF)) && (MagicBootKey == MAGIC_BOOT_KEY))
-	  JumpToApplication |= true;
-
-	/* If a request has been made to jump to the user application, honor it */
-	if (JumpToApplication)
-	{
-		/* Turn off the watchdog */
-		MCUSR &= ~(1<<WDRF);
-		wdt_disable();
-
-		/* Clear the boot key and jump to the user application */
-		Reenumerate(ENUMERATION_MODE_Keyboard);
-	}
-}
-
 /** Main program entry point. This routine configures the hardware required by the bootloader, then continuously
  *  runs the bootloader processing routine until instructed to soft-exit, or hard-reset via the watchdog to start
  *  the loaded application code.

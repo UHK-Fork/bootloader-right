@@ -13,10 +13,21 @@ void Bootloader_Jump_Check(void)
     SP -= sizeof(wormhole_t);
     Wormhole = (wormhole_t*)(SP + 1);
 
-    // If the reset source was the bootloader and the key is correct, clear it and jump to the bootloader
-    if ((MCUSR & (1 << WDRF)) && (Wormhole->MagicBootKey == MAGIC_BOOT_KEY)) {
-        Wormhole->MagicBootKey = 0;
-        ((void (*)(void))0x0000)();
+    uint8_t mcusr = MCUSR;
+    MCUSR = 0;
+
+    bool IsWatchdogReset = (mcusr & (1 << WDRF)) &&
+                           (Wormhole->MagicBootKey == MAGIC_BOOT_KEY) &&
+                           (Wormhole->EnumerationMode == ENUMERATION_MODE_Bootloader);
+    bool IsExternalReset = (mcusr & (1 << EXTRF));
+
+    if (mcusr & 1 << PORF) {
+        Wormhole->EnumerationMode = ENUMERATION_MODE_Keyboard;
+    }
+
+    if (!IsWatchdogReset && !IsExternalReset) {
+        Wormhole->MagicBootKey = MAGIC_BOOT_KEY;
+        ((void (*)(void))0x0000)();  // Jump to Application.
     }
 }
 
