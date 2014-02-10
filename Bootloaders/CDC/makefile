@@ -53,3 +53,7 @@ include $(LUFA_PATH)/Build/lufa_cppcheck.mk
 include $(LUFA_PATH)/Build/lufa_doxygen.mk
 include $(LUFA_PATH)/Build/lufa_avrdude.mk
 include $(LUFA_PATH)/Build/lufa_atprogram.mk
+
+fuses:
+	# Default fuses -CKDIV8 +BOOTRST
+	avrdude $(BASE_AVRDUDE_FLAGS) -U lfuse:w:0xde:m -U hfuse:w:0xd8:m -U efuse:w:0xf4:m
