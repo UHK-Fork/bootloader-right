@@ -53,7 +53,7 @@ const USB_Descriptor_Device_t DeviceDescriptor =
 
 	.Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 
-	.VendorID               = 0x16D1,  // TODO: Restore the VID to 0x16D0 for the final prototype.
+	.VendorID               = 0x16D2,  // TODO: Restore the VID to 0x16D0 for the final prototype.
 	.ProductID              = 0x05ED,
 	.ReleaseNumber          = VERSION_BCD(1,0,0),
 
