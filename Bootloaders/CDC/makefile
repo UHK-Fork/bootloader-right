@@ -11,7 +11,7 @@
 
 # Run "make help" for target help.
 
-MCU          = atmega32u2
+MCU          = atmega32u4
 ARCH         = AVR8
 BOARD        = NONE
 F_CPU        = 16000000
@@ -57,5 +57,5 @@ include $(LUFA_PATH)/Build/lufa_atprogram.mk
 upload: avrdude
 
 fuses:
-	# Default fuses -CKDIV8 +BOOTRST
-	avrdude $(BASE_AVRDUDE_FLAGS) -U lfuse:w:0xde:m -U hfuse:w:0xd8:m -U efuse:w:0xf4:m
+	# Default fuses -CKDIV8 +BOOTRST -JTAGEN
+	avrdude $(BASE_AVRDUDE_FLAGS) -U lfuse:w:0xde:m -U hfuse:w:0xd8:m -U efuse:w:0xf3:m
