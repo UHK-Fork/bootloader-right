@@ -237,10 +237,10 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 			else
 			{
 				/* Read the next EEPROM byte into the endpoint */
-				WriteNextResponseByte(eeprom_read_byte((uint8_t*)(intptr_t)(CurrAddress >> 1)));
+				//WriteNextResponseByte(eeprom_read_byte((uint8_t*)(intptr_t)(CurrAddress >> 1)));
 
 				/* Increment the address counter after use */
-				CurrAddress += 2;
+				//CurrAddress += 2;
 			}
 		}
 	}
@@ -277,10 +277,10 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 			else
 			{
 				/* Write the next EEPROM byte from the endpoint */
-				eeprom_write_byte((uint8_t*)((intptr_t)(CurrAddress >> 1)), FetchNextCommandByte());
+				//eeprom_write_byte((uint8_t*)((intptr_t)(CurrAddress >> 1)), FetchNextCommandByte());
 
 				/* Increment the address counter after use */
-				CurrAddress += 2;
+				//CurrAddress += 2;
 			}
 		}
 
