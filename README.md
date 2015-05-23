@@ -11,7 +11,7 @@ make upload AVRDUDE_PROGRAMMER={ProgrammerName} AVRDUDE_PORT={ProgrammerPort}  #
 make  fuses AVRDUDE_PROGRAMMER={ProgrammerName} AVRDUDE_PORT={ProgrammerPort}  # Set the fuses.
 ```
 
-For the [AVR ISP mkII](http://www.bravekit.com/USB_AVR_ISP_AVRISP_mkII_programmer_PDI_TPI_ATxMega_Xmega) this is:
+For the [AVR ISP mkII](http://www.bravekit.com/USB_AVR_ISP_AVRISP_mkII_programmer_PDI_TPI_ATxMega_Xmega) this translates to:
 
 ```bash
 cd Bootloaders/CDC
