@@ -1,8 +1,8 @@
 > **DEPRECATION NOTICE:**
 
-> This bootloader has been deprecated as a result of moving from Atmel AVR microcontrollers to the NXP Kinetis platform.
+> This bootloader has been deprecated as a result of moving from Atmel AVR to the NXP Kinetis microcontrollers.
 
-> You're welcome to check out the [new firmware](https://github.com/UltimateHackingKeyboard/firmware-kinetis).
+> You're welcome to check out the [new firmware](https://github.com/UltimateHackingKeyboard/firmware).
 
 UHK right half bootloader
 =========================
