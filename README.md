@@ -1,6 +1,6 @@
 > **DEPRECATION NOTICE:**
 
-> This bootloader has been deprecated as a result of moving from Atmel AVR to the NXP Kinetis microcontrollers.
+> This bootloader has been deprecated as a result of moving from Atmel AVR to NXP Kinetis microcontrollers.
 
 > You're welcome to check out the [new firmware](https://github.com/UltimateHackingKeyboard/firmware).
 
